@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'Matter';
+  src: url(../src/fonts/Matter-Medium.ttf);
+}
+
+@font-face {
+  font-family: 'MatterLight';
+  src: url(../src/fonts/Matter-Light.ttf);
+}
+
+@font-face {
+  font-family: 'TeodorLight';
+  src: url(../src/fonts/Teodor-Light.ttf);
+}
+
+
+
