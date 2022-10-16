@@ -35,6 +35,10 @@
         gap: 4px;
     }
 
+    // .test {
+    //     clip-path: square(80px 162px);
+    // }
+
     &__image-container {
         position: absolute;
         top: 50%;
@@ -44,14 +48,15 @@
         margin-top: -250px;
         margin-left: -200px;
         clip-path: ellipse(162px 162px);
+        transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
 
 
         &__image {
-            height: 472px;
+            height: 474px;
             width: 400px;
             object-fit: cover;
             object-position: 50% 50%;
-            position: absolute;
+            position: relative;
         }
 
 
@@ -94,20 +99,16 @@
 
 }
 
-// .tile-container {
-//     &:hover {
-//         .tile-container__title {
-//             bottom: -90px;
-//             padding-left: 0px;
-//         }
+.tile-container {
+    &:hover {
+        .tile-container__title {
+            bottom: -90px;
+            padding-left: 0px;
+        }
 
-//     }
-// }
-
-// .c1.c2 { both classes
-
-// }
-
-// .c1 .c2 { child within
-
-// }
+        .tile-container__image-container {
+            clip-path: ellipse(400px 400px);
+            margin-top: -237px;
+        }
+    }
+}

@@ -25,12 +25,14 @@ const CarouselTile = () => {
         <h4 className="tile-container__label-container__type">stay</h4>
       </div>
       {/* IMAGE */}
-      <div className="tile-container__image-container">
-        <img
-          src={Idlerocks}
-          alt="Idlerocks"
-          className="tile-container__image-container__image"
-        />
+      <div className="test">
+        <div className="tile-container__image-container">
+          <img
+            src={Idlerocks}
+            alt="Idlerocks"
+            className="tile-container__image-container__image"
+          />
+        </div>
       </div>
       {/* TITLE */}
       <div className="tile-container__title">
