@@ -30,13 +30,13 @@ const CarouselTileActive = () => {
               </h4>
             </div>
           </div>
-          {/* <div className="active-tile-container__image-container">
-        <img
-          src={Idlerocks}
-          alt="Idlerocks"
-          className="active-tile-container__image-container__image"
-        />
-      </div> */}
+          <div className="active-tile-container__image-container">
+            <img
+              src={Idlerocks}
+              alt="Idlerocks"
+              className="active-tile-container__image-container__image"
+            />
+          </div>
           <div className="active-tile-container__title">
             <h1 className="active-tile-container__title__header">
               {item.title}
