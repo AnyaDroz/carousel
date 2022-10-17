@@ -1,4 +1,5 @@
 .tile-container {
+    position: relative;
     color: #0E1249;
     height: 472px;
     width: 400px;
@@ -7,67 +8,67 @@
     border-style: solid;
     border-width: 1px;
 
-
-
-
-    &__topbar {
-        position: relative;
+    &__eyebrow-container {
+        position: absolute;
+        left: -24px;
+        top: 42px;
         display: flex;
+        font-family: "MatterLight";
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 0.5px;
         flex-direction: row;
-        justify-content: space-between;
-        padding-left: 16px;
-        padding-right: 16px;
-
-        &__eyebrow-container {
-            position: relative;
-            display: flex;
-            font-family: "MatterLight";
-            text-transform: uppercase;
-            font-size: 12px;
-            letter-spacing: 0.5px;
-            flex-direction: row;
-            gap: 6px;
-            transform: rotate(90deg) translate(35px, 45px);
-
-        }
-
-        &__label-container {
-            position: relative;
-            display: flex;
-            font-family: "Matter";
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            flex-direction: row;
-            gap: 4px;
-        }
+        gap: 6px;
+        transform: rotate(90deg);
     }
 
-    &__image-container {
-        position: relative;
-        justify-content: center;
-        margin: 0 auto;
+
+    &__label-container {
+        position: absolute;
+        right: 16px;
         display: flex;
-        width: 324px;
-        height: 324px;
+        font-family: "Matter";
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    // .test {
+    //     clip-path: square(80px 162px);
+    // }
+
+    &__image-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 100%;
+        width: 100%;
+        margin-top: -250px;
+        margin-left: -200px;
+        clip-path: ellipse(162px 162px);
+        transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
 
         &__image {
-
-            border-radius: 500px;
-            height: 100%;
-            width: 100%;
+            height: 474px;
+            width: 400px;
             object-fit: cover;
+            object-position: 50% 50%;
+            position: relative;
         }
+
 
 
     }
 
     &__title {
-
-        flex-direction: column;
-        align-content: flex-end;
-        height: 56px;
+        position: absolute;
+        bottom: 12px;
         padding-left: 16px;
+        transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
 
 
         &__header {
@@ -77,6 +78,9 @@
             font-size: 24px;
             letter-spacing: 0.5px;
             line-height: 32px;
+            margin-top: 24px;
+            margin-bottom: 12px;
+
         }
 
         &__subheader {
@@ -88,7 +92,23 @@
             font-size: 16px;
             letter-spacing: 0.5px;
             line-height: 16px;
+            margin: 0px;
+            padding: 0px;
         }
     }
 
+}
+
+.tile-container {
+    &:hover {
+        .tile-container__title {
+            bottom: -90px;
+            padding-left: 0px;
+        }
+
+        .tile-container__image-container {
+            clip-path: ellipse(400px 400px);
+            margin-top: -237px;
+        }
+    }
 }
