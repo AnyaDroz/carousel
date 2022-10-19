@@ -2,16 +2,17 @@ import React from "react";
 import "../carouselTile/carousel_tile.scss";
 import Squiggle from "../../images/squiggle.svg";
 import Idlerocks from "../../images/idlerocks.png";
-const CarouselTile = () => {
+
+const CarouselTile = ({ info }) => {
   return (
     <div className="tile-container">
       {/* EYEBROWS */}
       <div className="tile-container__eyebrow-container">
         <h4 className="tile-container__eyebrow-container__eyebrow-one">
-          Hotel
+          {info.eyebrowOne}
         </h4>
         <h4 className="tile-container__eyebrow-container__eyebrow-two">
-          Remote
+          {info.eyebrowTwo}
         </h4>
       </div>
 
@@ -22,7 +23,7 @@ const CarouselTile = () => {
           alt="squiggle"
           className="tile-container__label-container__squiggle"
         />
-        <h4 className="tile-container__label-container__type">stay</h4>
+        <h4 className="tile-container__label-container__type">{info.label}</h4>
       </div>
       {/* IMAGE */}
       <div className="test">
@@ -36,8 +37,8 @@ const CarouselTile = () => {
       </div>
       {/* TITLE */}
       <div className="tile-container__title">
-        <h1 className="tile-container__title__header">The idle rocks</h1>
-        <h2 className="tile-container__title__subheader">St mawes, cornwall</h2>
+        <h1 className="tile-container__title__header">{info.title}</h1>
+        <h2 className="tile-container__title__subheader">{info.location}</h2>
       </div>
     </div>
   );
