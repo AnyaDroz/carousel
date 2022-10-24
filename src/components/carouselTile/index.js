@@ -5,28 +5,24 @@ import Squiggle from "../../images/squiggle.svg";
 const CarouselTile = ({ info, index, scrollPosition }) => {
   const [active, setActive] = useState(false);
 
-  // Either - when carousel window is scrolled - check position of tile containers (Loop through them?)
-  // If any tile container has position > 0 && < 10 then set to active state (usestate?)
-  // {position < 10 ? "active" + "tile-container": "tile-container"}
-  //Otherwise could you do - if tile container is moved (useeffect?) then check position, if over 0, set active state.
-  const width = 424;
-
-  function checkActive() {
-    console.log(scrollPosition);
-    if (
-      index * width < scrollPosition + 10 &&
-      index * width > scrollPosition - 10
-    ) {
-      setActive(true);
-    }
-  }
+  const tileContainerRef = useRef();
+  const gap = 24;
 
   useEffect(() => {
-    checkActive();
-  });
+    const width = tileContainerRef.current.getBoundingClientRect().width;
+    // console.log(width + gap);
+    // console.log(scrollPosition);
+    const isActive = index * (width + gap) === scrollPosition;
+    // && index * width === scrollPosition;
+    setActive(isActive);
+  }, [scrollPosition]);
 
   return (
-    <div className="tile-container">
+    <div
+      className={`tile-container ${active && "active"}`}
+      ref={tileContainerRef}
+      style={{ marginRight: gap }}
+    >
       {/* EYEBROWS */}
       <div className="tile-container__eyebrow-container">
         <h4 className="tile-container__eyebrow-container__eyebrow-one">
@@ -47,13 +43,7 @@ const CarouselTile = ({ info, index, scrollPosition }) => {
       </div>
       {/* IMAGE */}
 
-      <div
-        className={
-          active
-            ? "tile-container__image-container active"
-            : "tile-container__image-container"
-        }
-      >
+      <div className="tile-container__image-container">
         <img
           src={info.image}
           alt="Idlerocks"
@@ -62,11 +52,7 @@ const CarouselTile = ({ info, index, scrollPosition }) => {
       </div>
 
       {/* TITLE */}
-      <div
-        className={
-          active ? "tile-container__title active" : "tile-container__title"
-        }
-      >
+      <div className="tile-container__title">
         <h1 className="tile-container__title__header">{info.title}</h1>
         <h2 className="tile-container__title__subheader">{info.location}</h2>
       </div>
