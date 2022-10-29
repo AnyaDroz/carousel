@@ -50,27 +50,48 @@ const info = [
     image: Treehouse,
   },
 ];
+const copyArray = [];
+copyArray.push(...info);
 
 for (let i = 0; i < 2; i++) {
   info.push(...info);
   console.log("push");
 }
-// four times more.
 
 function Carousel() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const tileRef = useRef(null);
-  const [initial, setInitial] = useState(0);
+  const checkRef = useRef(true);
+  console.log(copyArray);
 
-  function getPosition() {
-    const position = tileRef.current.scrollLeft;
-    setScrollPosition(position);
-  }
   useEffect(() => {
     const initialScrollPosition =
       (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
-    setInitial((tileRef.current.scrollLeft = initialScrollPosition));
+    tileRef.current.scrollLeft = initialScrollPosition;
   }, []);
+
+  function getPosition() {
+    const position = tileRef.current.scrollLeft;
+    const tileWidth =
+      tileRef.current.lastChild.getBoundingClientRect().width + 24;
+    setScrollPosition(position);
+
+    const initialScrollPosition =
+      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
+    // console.log(info);
+    // console.log(info.length);
+    if (
+      position % tileWidth === 0 &&
+      // checkRef.current &&
+      initialScrollPosition != position
+    ) {
+      console.log("it worked");
+      console.log(position);
+      info.splice(0, 5);
+      info.push(...copyArray);
+      console.log(info);
+    }
+  }
 
   return (
     <div className="carousel-window" ref={tileRef} onScroll={getPosition}>
