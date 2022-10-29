@@ -10,7 +10,7 @@ import { useRef, useEffect, useState } from "react";
 
 const info = [
   {
-    label: "stay",
+    label: "one",
     title: "the idle rocks",
     eyebrowOne: "hotel",
     eyebrowTwo: "remote",
@@ -18,7 +18,7 @@ const info = [
     image: Idlerocks,
   },
   {
-    label: "stay",
+    label: "two",
     title: "Oakley court",
     eyebrowOne: "castle",
     eyebrowTwo: "urban",
@@ -26,7 +26,7 @@ const info = [
     image: Oakleycourt,
   },
   {
-    label: "stay",
+    label: "three",
     title: "Berkley Cottage",
     eyebrowOne: "Cottage",
     eyebrowTwo: "remote",
@@ -34,7 +34,7 @@ const info = [
     image: Cottage,
   },
   {
-    label: "stay",
+    label: "four",
     title: "Berkley Cottage",
     eyebrowOne: "Cottage",
     eyebrowTwo: "remote",
@@ -42,7 +42,7 @@ const info = [
     image: Beachfront,
   },
   {
-    label: "stay",
+    label: "five",
     title: "Berkley Cottage",
     eyebrowOne: "Cottage",
     eyebrowTwo: "remote",
@@ -50,6 +50,7 @@ const info = [
     image: Treehouse,
   },
 ];
+
 const copyArray = [];
 copyArray.push(...info);
 
@@ -75,17 +76,17 @@ function Carousel() {
 
     const initialScrollPosition =
       (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
-    // console.log(info);
-    // console.log(info.length);
+
     if (
       position % tileWidth === 0 &&
       // checkRef.current &&
       initialScrollPosition != position
     ) {
-      console.log(position);
-      info.splice(0, 1);
+      console.log(info);
       info.push(info[0]);
-
+      info.splice(0, 1);
+      tileRef.current.scrollBy(-tileWidth, 0);
+      console.log(info);
       // tileRef.current.scrollTo(1000, 0);
     }
   }
