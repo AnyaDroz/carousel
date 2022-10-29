@@ -8,7 +8,6 @@ import Beachfront from "../../images/beachfront.png";
 import Treehouse from "../../images/treehouse.png";
 import { useRef, useEffect, useState } from "react";
 
-// questions: If I wanted to get 'width' from the other component how do I get that here?
 const info = [
   {
     label: "stay",
@@ -51,35 +50,30 @@ const info = [
     image: Treehouse,
   },
 ];
-const copyArray = [];
-copyArray.push(...info);
-let originalLengthOfArray = copyArray.length;
+
+for (let i = 0; i < 2; i++) {
+  info.push(...info);
+  console.log("push");
+}
+// four times more.
 
 function Carousel() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const tileRef = useRef(null);
+  const [initial, setInitial] = useState(0);
 
   function getPosition() {
     const position = tileRef.current.scrollLeft;
     setScrollPosition(position);
-
-    const lastTile =
-      (tileRef.current.lastChild.getBoundingClientRect().width + 24) *
-      (info.length - originalLengthOfArray);
-    // this checks whenever you've passed the first card - I wasnt able to access last card
-    if (position > lastTile) {
-      info.push(...info);
-    } else {
-    }
   }
+  useEffect(() => {
+    const initialScrollPosition =
+      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
+    setInitial((tileRef.current.scrollLeft = initialScrollPosition));
+  }, []);
 
   return (
-    <div
-      className="carousel-window"
-      // onClick={clickHandler}
-      ref={tileRef}
-      onScroll={getPosition}
-    >
+    <div className="carousel-window" ref={tileRef} onScroll={getPosition}>
       {info.map((item, index) => {
         return (
           <CarouselTile
