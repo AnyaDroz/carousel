@@ -55,14 +55,11 @@ copyArray.push(...info);
 
 for (let i = 0; i < 2; i++) {
   info.push(...info);
-  console.log("push");
 }
 
 function Carousel() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const tileRef = useRef(null);
-  const checkRef = useRef(true);
-  console.log(copyArray);
 
   useEffect(() => {
     const initialScrollPosition =
@@ -85,11 +82,11 @@ function Carousel() {
       // checkRef.current &&
       initialScrollPosition != position
     ) {
-      console.log("it worked");
       console.log(position);
-      info.splice(0, 5);
-      info.push(...copyArray);
-      console.log(info);
+      info.splice(0, 1);
+      info.push(info[0]);
+
+      // tileRef.current.scrollTo(1000, 0);
     }
   }
 
