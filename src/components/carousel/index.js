@@ -34,7 +34,7 @@ const info = [
     image: Cottage,
   },
   {
-    label: "four",
+    label: "test",
     title: "Berkley Cottage",
     eyebrowOne: "Cottage",
     eyebrowTwo: "remote",
