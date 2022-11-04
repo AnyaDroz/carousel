@@ -51,21 +51,28 @@ const info = [
   },
 ];
 
-const copyArray = [];
-copyArray.push(...info);
+// const copyArray = [];
+// copyArray.push(...info);
 
-for (let i = 0; i < 2; i++) {
-  info.push(...info);
-}
+// for (let i = 0; i < 2; i++) {
+//   info.push(...info);
+// }
 
 function Carousel() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const tileRef = useRef(null);
+  const groupRefOne = useRef(null);
+  const groupRefTwo = useRef(null);
+  const [firstOrder, setFirstOrder] = useState(true);
+  const [lastOrder, setLastOrder] = useState(false);
 
   useEffect(() => {
-    const initialScrollPosition =
-      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
-    tileRef.current.scrollLeft = initialScrollPosition;
+    const positionOfContainerOne =
+      groupRefOne.current.getBoundingClientRect().x;
+    // console.log(positionOfContainerOne);
+    const positionOfContainerTwo =
+      groupRefTwo.current.getBoundingClientRect().x;
+    // console.log(positionOfContainerTwo);
   }, []);
 
   function getPosition() {
@@ -73,36 +80,50 @@ function Carousel() {
     const tileWidth =
       tileRef.current.lastChild.getBoundingClientRect().width + 24;
     setScrollPosition(position);
+    const positionOfContainerTwo =
+      groupRefTwo.current.getBoundingClientRect().x;
+    console.log(positionOfContainerTwo);
 
-    const initialScrollPosition =
-      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
-
-    if (
-      position % tileWidth === 0 &&
-      // checkRef.current &&
-      initialScrollPosition != position
-    ) {
-      console.log(info);
-      info.push(info[0]);
-      info.splice(0, 1);
-      tileRef.current.scrollBy(-tileWidth, 0);
-      console.log(info);
-      // tileRef.current.scrollTo(1000, 0);
+    if (positionOfContainerTwo === 8) {
+      setFirstOrder(false);
+      setLastOrder(true);
+      // tileRef.current.scrollTo(0, 0);
     }
   }
 
   return (
     <div className="carousel-window" ref={tileRef} onScroll={getPosition}>
-      {info.map((item, index) => {
-        return (
-          <CarouselTile
-            key={index}
-            index={index}
-            info={item}
-            scrollPosition={scrollPosition}
-          />
-        );
-      })}
+      <div className="scroll-container">
+        <div
+          className={`group-container ${firstOrder && "one"} ${
+            lastOrder && "three"
+          }`}
+          ref={groupRefOne}
+        >
+          {info.map((item, index) => {
+            return (
+              <CarouselTile
+                key={index}
+                index={index}
+                info={item}
+                scrollPosition={scrollPosition}
+              />
+            );
+          })}
+        </div>
+        <div className="group-container two" ref={groupRefTwo}>
+          {info.map((item, index) => {
+            return (
+              <CarouselTile
+                key={index}
+                index={index}
+                info={item}
+                scrollPosition={scrollPosition}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

@@ -12,7 +12,11 @@ const CarouselTile = ({ info, index, scrollPosition }) => {
     const width = tileContainerRef.current.getBoundingClientRect().width;
     // console.log(width + gap);
     // console.log(scrollPosition);
-    const isActive = index * (width + gap) === scrollPosition;
+
+    const isActive =
+      index * (width + gap) === scrollPosition ||
+      (index + 5) * (width + gap) === scrollPosition;
+    // const isActive = scrollPosition % (width + gap) === 0;
     // && index * width === scrollPosition;
     setActive(isActive);
   }, [scrollPosition]);
