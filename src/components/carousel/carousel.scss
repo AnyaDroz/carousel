@@ -9,43 +9,31 @@
 // }
 
 .carousel-window {
-
+    position: relative;
+    display: inline-flex;
     width: 100vw;
-    overflow-x: scroll;
+
     height: 600px;
 
     transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
-    scroll-snap-type: x proximity;
+
 }
+
+.one {
+    background-color: aqua;
+    left: 8px;
+}
+
+.two {
+    background-color: black;
+    left: 2138px;
+}
+
 
 
 
 .group-container {
+    position: absolute;
     display: inline-flex;
 
-}
-
-// .one {
-
-//     order: 1;
-//     background-color: aqua;
-// }
-
-// .two {
-//     order: 2;
-// }
-
-// .three {
-
-//     order: 3;
-//     background-color: aqua;
-
-// }
-
-
-.scroll-container {
-    display: inline-flex;
-    display: flex;
- width: auto;
- justify-content: space-between;
 }

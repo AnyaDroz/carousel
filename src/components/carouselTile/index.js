@@ -2,8 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import "../carouselTile/carousel_tile.scss";
 import Squiggle from "../../images/squiggle.svg";
 
-const CarouselTile = ({ info, index, scrollPosition }) => {
-  const [active, setActive] = useState(false);
+const CarouselTile = ({ info, index }) => {
+  // const [active, setActive] = useState(false);
 
   const tileContainerRef = useRef();
   const gap = 24;
@@ -13,17 +13,17 @@ const CarouselTile = ({ info, index, scrollPosition }) => {
     // console.log(width + gap);
     // console.log(scrollPosition);
 
-    const isActive =
-      index * (width + gap) === scrollPosition ||
-      (index + 5) * (width + gap) === scrollPosition;
-    // const isActive = scrollPosition % (width + gap) === 0;
-    // && index * width === scrollPosition;
-    setActive(isActive);
-  }, [scrollPosition]);
+    //   const isActive =
+    //     index * (width + gap) === scrollPosition ||
+    //     (index + 5) * (width + gap) === scrollPosition;
+    //   // const isActive = scrollPosition % (width + gap) === 0;
+    //   // && index * width === scrollPosition;
+    //   setActive(isActive);
+  }, []);
 
   return (
     <div
-      className={`tile-container ${active && "active"}`}
+      className="tile-container"
       ref={tileContainerRef}
       style={{ marginRight: gap }}
     >
