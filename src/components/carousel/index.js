@@ -51,76 +51,50 @@ const info = [
   },
 ];
 
-// const copyArray = [];
-// copyArray.push(...info);
-
-// for (let i = 0; i < 2; i++) {
-//   info.push(...info);
-// }
-
 function Carousel() {
-  // const [scrollPosition, setScrollPosition] = useState(0);
   const tileRef = useRef(null);
   const groupRefOne = useRef(null);
   const groupRefTwo = useRef(null);
-
-  // const [firstOrder, setFirstOrder] = useState(true);
-  // const [lastOrder, setLastOrder] = useState(false);
-
-  // function UpdateOnWindowScroll() {
-  //   if (window.scrollX > 0) {
-  //     setScrollPosition(window.scrollX);
-  //     console.log(window.scrollX);
-  //   }
-  // }
+  const isOneFirst = useRef(true);
+  const [isTwoFirst, setIsTwoFirst] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
-      // console.log("Scrolling...");
+      console.log("Scrolling...");
+
       const positionOfContainerOne =
         groupRefOne.current.getBoundingClientRect().x;
-      console.log(positionOfContainerOne);
       const positionOfContainerTwo =
         groupRefTwo.current.getBoundingClientRect().x;
+      const widthOfContainerOne =
+        groupRefOne.current.getBoundingClientRect().width;
+      // groupRefTwo.current.style.left;
+
+      console.log(positionOfContainerOne);
       console.log(positionOfContainerTwo);
+      console.log(window.pageXOffset);
 
-      // if(positionOfContainerTwo > 0) {
-
-      // }
-
-      //8
-      //2146
+      if (
+        positionOfContainerTwo < 0 &&
+        positionOfContainerOne < -widthOfContainerOne
+      ) {
+        groupRefOne.current.style.left = `${2 * widthOfContainerOne + 8}px`;
+        //instead of two need current
+        isOneFirst.current = false;
+        console.log(isOneFirst);
+      }
+      if (
+        positionOfContainerOne < 0 &&
+        positionOfContainerTwo < -widthOfContainerOne
+      ) {
+        console.log(isOneFirst);
+        groupRefTwo.current.style.left = `${3 * widthOfContainerOne}px`;
+      }
     });
   }, []);
 
-  function clickHandler() {
-    const positionOfContainerOne =
-      groupRefOne.current.getBoundingClientRect().x;
-    console.log(positionOfContainerOne);
-    //16
-
-    groupRefOne.current.style.left = "4500px";
-    groupRefTwo.current.style.left = "2138px";
-  }
-
-  // function getPosition() {
-  //   const position = tileRef.current.scrollLeft;
-  //   const tileWidth =
-  //     tileRef.current.lastChild.getBoundingClientRect().width + 24;
-  //   setScrollPosition(position);
-  //   const positionOfContainerTwo =
-  //     groupRefTwo.current.getBoundingClientRect().x;
-  //   console.log(positionOfContainerTwo);
-
-  //   if (positionOfContainerTwo === 8) {
-  //     setFirstOrder(false);
-  //     setLastOrder(true);
-  //     // tileRef.current.scrollTo(0, 0);
-  //   }
-  // }
-
   return (
-    <div className="carousel-window" ref={tileRef} onClick={clickHandler}>
+    <div className="carousel-window" ref={tileRef}>
       <div className="group-container one" ref={groupRefOne}>
         {info.map((item, index) => {
           return <CarouselTile key={index} index={index} info={item} />;
