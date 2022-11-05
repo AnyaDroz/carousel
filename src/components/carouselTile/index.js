@@ -26,6 +26,7 @@ const CarouselTile = ({ info, index }) => {
       className="tile-container"
       ref={tileContainerRef}
       style={{ marginRight: gap }}
+      draggable="false"
     >
       {/* EYEBROWS */}
       <div className="tile-container__eyebrow-container">
@@ -52,6 +53,7 @@ const CarouselTile = ({ info, index }) => {
           src={info.image}
           alt="Idlerocks"
           className="tile-container__image-container__image"
+          draggable="false"
         />
       </div>
 

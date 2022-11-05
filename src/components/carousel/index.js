@@ -63,37 +63,57 @@ function Carousel() {
     console.log("mousedown");
     currentPosRef.current = groupRef.current.getBoundingClientRect().x;
     console.log(currentPosRef.current);
+    // tileRef.current.lastChild.getBoundingClientRect().width + 24
   }
 
   function moveContainer() {
     console.log("hello");
     console.log(currentPosRef.current);
-    groupRef.current.style.left = `${currentPosRef - 426}px`;
+    groupRef.current.style.left = `${currentPosRef.current - 432}px`;
     groupRef.current.style.transition =
       "left 1.5s cubic-bezier(0.075, 0.82, 0.165, 1)";
     tileRef.current.scrollLeft = "0px";
+    document.addEventListener(
+      "dragstart",
+      function (event) {
+        var img = new Image();
+        img.src =
+          "data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=";
+        event.dataTransfer.setDragImage(img, 0, 0);
+      },
+      false
+    );
   }
 
   useEffect(() => {}, []);
 
   return (
-    <div className="carousel-window" ref={tileRef} onScroll={moveContainer}>
+    <div
+      className="carousel-window"
+      ref={tileRef}
+      // onScroll={moveContainer}
+    >
       <div
         className="main-container"
         ref={groupRef}
         onMouseDown={capturePosition}
+        onDragStart={moveContainer}
+        draggable="true"
       >
         <div
           className="group-container one"
           ref={groupRefOne}
-          onDragStart={moveContainer}
-          draggable="true"
+          draggable="false"
         >
           {info.map((item, index) => {
             return <CarouselTile key={index} index={index} info={item} />;
           })}
         </div>
-        <div className="group-container two" ref={groupRefTwo}>
+        <div
+          className="group-container two"
+          ref={groupRefTwo}
+          draggable="false"
+        >
           {info.map((item, index) => {
             return <CarouselTile key={index} index={index} info={item} />;
           })}
