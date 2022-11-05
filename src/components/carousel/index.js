@@ -55,55 +55,33 @@ function Carousel() {
   const tileRef = useRef(null);
   const groupRefOne = useRef(null);
   const groupRefTwo = useRef(null);
-  const isOneFirst = useRef(true);
-  const [isTwoFirst, setIsTwoFirst] = useState(false);
+  const groupRef = useRef(null);
+  const currentPosRef = useRef("0px");
 
-  useEffect(() => {
-    window.addEventListener("scroll", (event) => {
-      console.log("Scrolling...");
+  function moveContainer() {
+    console.log("hello");
+    const position = groupRef.current.getBoundingClientRect().x;
+    console.log(position);
+    groupRef.current.style.left = `${-426}px`;
+    groupRef.current.style.transition =
+      "left 1.5s cubic-bezier(0.075, 0.82, 0.165, 1)";
+  }
 
-      const positionOfContainerOne =
-        groupRefOne.current.getBoundingClientRect().x;
-      const positionOfContainerTwo =
-        groupRefTwo.current.getBoundingClientRect().x;
-      const widthOfContainerOne =
-        groupRefOne.current.getBoundingClientRect().width;
-      // groupRefTwo.current.style.left;
-
-      console.log(positionOfContainerOne);
-      console.log(positionOfContainerTwo);
-      console.log(window.pageXOffset);
-
-      if (
-        positionOfContainerTwo < 0 &&
-        positionOfContainerOne < -widthOfContainerOne
-      ) {
-        groupRefOne.current.style.left = `${2 * widthOfContainerOne + 8}px`;
-        //instead of two need current
-        isOneFirst.current = false;
-        console.log(isOneFirst);
-      }
-      if (
-        positionOfContainerOne < 0 &&
-        positionOfContainerTwo < -widthOfContainerOne
-      ) {
-        console.log(isOneFirst);
-        groupRefTwo.current.style.left = `${3 * widthOfContainerOne}px`;
-      }
-    });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="carousel-window" ref={tileRef}>
-      <div className="group-container one" ref={groupRefOne}>
-        {info.map((item, index) => {
-          return <CarouselTile key={index} index={index} info={item} />;
-        })}
-      </div>
-      <div className="group-container two" ref={groupRefTwo}>
-        {info.map((item, index) => {
-          return <CarouselTile key={index} index={index} info={item} />;
-        })}
+      <div className="main-container" ref={groupRef} onDrag={moveContainer}>
+        <div className="group-container one" ref={groupRefOne}>
+          {info.map((item, index) => {
+            return <CarouselTile key={index} index={index} info={item} />;
+          })}
+        </div>
+        <div className="group-container two" ref={groupRefTwo}>
+          {info.map((item, index) => {
+            return <CarouselTile key={index} index={index} info={item} />;
+          })}
+        </div>
       </div>
     </div>
   );
