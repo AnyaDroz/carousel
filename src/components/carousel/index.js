@@ -57,22 +57,36 @@ function Carousel() {
   const groupRefTwo = useRef(null);
   const groupRef = useRef(null);
   const currentPosRef = useRef("0px");
-  let position;
 
   function capturePosition() {
     console.log("mousedown");
     currentPosRef.current = groupRef.current.getBoundingClientRect().x;
     console.log(currentPosRef.current);
+
     // tileRef.current.lastChild.getBoundingClientRect().width + 24
   }
 
   function moveContainer() {
     console.log("hello");
-    console.log(currentPosRef.current);
-    groupRef.current.style.left = `${currentPosRef.current - 432}px`;
+
+    const widthOfGroup = groupRefOne.current.getBoundingClientRect().width;
+
+    groupRef.current.style.left = `${currentPosRef.current - 434}px`;
     groupRef.current.style.transition =
       "left 1.5s cubic-bezier(0.075, 0.82, 0.165, 1)";
     tileRef.current.scrollLeft = "0px";
+    console.log(groupRefTwo.current.getBoundingClientRect().x);
+    console.log(widthOfGroup);
+    console.log(currentPosRef.current);
+    console.log(currentPosRef.current % widthOfGroup);
+    if (groupRefTwo.current.getBoundingClientRect().x < 453) {
+      setTimeout(() => {
+        groupRef.current.style.left = "0px";
+        groupRef.current.style.transition = "left 0s";
+      }, 2000);
+    }
+
+    //remove ghost image
     document.addEventListener(
       "dragstart",
       function (event) {
@@ -83,6 +97,7 @@ function Carousel() {
       },
       false
     );
+    //end remove ghost image
   }
 
   useEffect(() => {}, []);
@@ -100,11 +115,7 @@ function Carousel() {
         onDragStart={moveContainer}
         draggable="true"
       >
-        <div
-          className="group-container one"
-          ref={groupRefOne}
-          draggable="false"
-        >
+        <div className="group-container" ref={groupRefOne} draggable="false">
           {info.map((item, index) => {
             return <CarouselTile key={index} index={index} info={item} />;
           })}

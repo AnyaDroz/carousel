@@ -10,7 +10,7 @@
 
 .carousel-window {
 
-    overflow: scroll;
+    // overflow: scroll;
     position: relative;
     display: inline-flex;
     width: 100vw;
@@ -25,11 +25,10 @@
 
 }
 
-
-
 .one {
 
     order: 1;
+    background-color: aqua;
 
 }
 
@@ -40,8 +39,7 @@
 .three {
 
     order: 3;
-
-
+    background-color: red;
 }
 
 
