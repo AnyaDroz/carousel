@@ -76,18 +76,10 @@ function Carousel() {
 
     const initialScrollPosition =
       (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
-
-    if (
-      position % tileWidth === 0 &&
-      // checkRef.current &&
-      initialScrollPosition != position
-    ) {
+    console.log(position);
+    if (position === 6390 || position === 2130) {
+      tileRef.current.scrollLeft = initialScrollPosition;
       console.log(info);
-      info.push(info[0]);
-      info.splice(0, 1);
-      tileRef.current.scrollBy(-tileWidth, 0);
-      console.log(info);
-      // tileRef.current.scrollTo(1000, 0);
     }
   }
 
