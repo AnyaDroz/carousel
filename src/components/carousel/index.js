@@ -57,32 +57,45 @@ function Carousel() {
   const groupRefTwo = useRef(null);
   const groupRef = useRef(null);
   const currentPosRef = useRef("0px");
+  const currentPosRefOne = useRef("0px");
+  const currentPosRefTwo = useRef("0px");
+  const [NewScrollPosition, setNewScrollPosition] = useState(false);
+  const [array, setArray] = useState(info);
 
-  function capturePosition() {
-    console.log("mousedown");
-    currentPosRef.current = groupRef.current.getBoundingClientRect().x;
-    console.log(currentPosRef.current);
+  useEffect(() => {
+    // currentPosRef.current = groupRef.current.getBoundingClientRect().x;
+    // console.log(currentPosRef.current);
+    // currentPosRefOne.current = groupRefOne.current.getBoundingClientRect().x;
+    // console.log(currentPosRefOne.current);
+    // currentPosRefTwo.current = groupRefTwo.current.getBoundingClientRect().x;
+    // console.log(currentPosRefTwo.current);
+  }, []);
 
-    // tileRef.current.lastChild.getBoundingClientRect().width + 24
-  }
+  useEffect(() => {}, [array]);
 
   function moveContainer() {
     console.log("hello");
 
-    const widthOfGroup = groupRefOne.current.getBoundingClientRect().width;
-
-    groupRef.current.style.left = `${currentPosRef.current - 434}px`;
-    groupRef.current.style.transition =
-      "left 1.5s cubic-bezier(0.075, 0.82, 0.165, 1)";
-    tileRef.current.scrollLeft = "0px";
-    console.log(groupRefTwo.current.getBoundingClientRect().x);
-    console.log(widthOfGroup);
+    currentPosRef.current = groupRef.current.getBoundingClientRect().x;
     console.log(currentPosRef.current);
-    console.log(currentPosRef.current % widthOfGroup);
-    if (groupRefTwo.current.getBoundingClientRect().x < 453) {
+    // currentPosRefOne.current = groupRefOne.current.getBoundingClientRect().x;
+    // console.log(currentPosRefOne.current);
+    // currentPosRefTwo.current = groupRefTwo.current.getBoundingClientRect().x;
+    // console.log(currentPosRefTwo.current);
+
+    // const widthOfGroup = groupRefOne.current.getBoundingClientRect().width;
+
+    // groupRef.current.style.left = `${currentPosRef.current - 434}px`;
+    // groupRef.current.style.transition =
+    //   "left 1.5s cubic-bezier(0.075, 0.82, 0.165, 1)";
+    // tileRef.current.scrollLeft = "0px";
+    // console.log(groupRefTwo.current.getBoundingClientRect().x);
+    // console.log(widthOfGroup);
+    // console.log(currentPosRef.current);
+    // console.log(currentPosRef.current % widthOfGroup);
+    if (groupRefTwo.current.getBoundingClientRect().x < 0) {
       setTimeout(() => {
-        groupRef.current.style.left = "0px";
-        groupRef.current.style.transition = "left 0s";
+        setNewScrollPosition(true);
       }, 2000);
     }
 
@@ -103,20 +116,20 @@ function Carousel() {
   useEffect(() => {}, []);
 
   return (
-    <div
-      className="carousel-window"
-      ref={tileRef}
-      // onScroll={moveContainer}
-    >
+    <div className="carousel-window" ref={tileRef} onScroll={moveContainer}>
       <div
         className="main-container"
         ref={groupRef}
-        onMouseDown={capturePosition}
         onDragStart={moveContainer}
         draggable="true"
+        style={(NewScrollPosition && { left: "100px" }) || { left: "8px" }}
       >
-        <div className="group-container" ref={groupRefOne} draggable="false">
-          {info.map((item, index) => {
+        <div
+          className="group-container one"
+          ref={groupRefOne}
+          draggable="false"
+        >
+          {array.map((item, index) => {
             return <CarouselTile key={index} index={index} info={item} />;
           })}
         </div>
