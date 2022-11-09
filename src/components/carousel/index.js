@@ -59,33 +59,53 @@ for (let i = 0; i < 2; i++) {
 }
 
 function Carousel() {
+  const [array, setArray] = useState(info);
   const [scrollPosition, setScrollPosition] = useState(0);
   const tileRef = useRef(null);
+  const initialScrollPositionRef = useRef(0);
+  const widthRef = useRef(0);
+  const positionRef = useRef(0);
 
   useEffect(() => {
-    const initialScrollPosition =
+    //Placing the array in the middle.
+    console.log(
+      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10
+    );
+    initialScrollPositionRef.current =
       (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
+    const initialScrollPosition = initialScrollPositionRef.current;
+
     tileRef.current.scrollLeft = initialScrollPosition;
   }, []);
 
   function getPosition() {
-    const position = tileRef.current.scrollLeft;
-    const tileWidth =
+    //Updating the width reference to be width of card + gap times length of array
+    widthRef.current =
       tileRef.current.lastChild.getBoundingClientRect().width + 24;
-    setScrollPosition(position);
+    positionRef.current = tileRef.current.scrollLeft;
+    // const position =
+    const width = (widthRef.current + 24) * 5;
 
-    const initialScrollPosition =
-      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
-    console.log(position);
-    if (position === 6390 || position === 2130) {
-      tileRef.current.scrollLeft = initialScrollPosition;
+    // console.log(width);
+
+    setScrollPosition(positionRef.current);
+    console.log(positionRef.current);
+  }
+
+  useEffect(() => {
+    const width = (widthRef.current + 24) * 5;
+    const tileWidth = widthRef.current;
+    console.log(width);
+
+    if (positionRef.current >= 6390 && positionRef.current % tileWidth === 0) {
+      tileRef.current.scrollLeft = positionRef.current - width;
       console.log(info);
     }
-  }
+  }, [scrollPosition]);
 
   return (
     <div className="carousel-window" ref={tileRef} onScroll={getPosition}>
-      {info.map((item, index) => {
+      {array.map((item, index) => {
         return (
           <CarouselTile
             key={index}
