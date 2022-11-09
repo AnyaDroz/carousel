@@ -54,7 +54,7 @@ const info = [
 const copyArray = [];
 copyArray.push(...info);
 
-for (let i = 0; i < 2; i++) {
+for (let i = 0; i < 4; i++) {
   info.push(...info);
 }
 
@@ -68,11 +68,9 @@ function Carousel() {
 
   useEffect(() => {
     //Placing the array in the middle.
-    console.log(
-      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10
-    );
+
     initialScrollPositionRef.current =
-      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 10;
+      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 20;
     const initialScrollPosition = initialScrollPositionRef.current;
 
     tileRef.current.scrollLeft = initialScrollPosition;
@@ -92,6 +90,10 @@ function Carousel() {
     console.log(positionRef.current);
   }
 
+  function scrollFunction() {
+    // I'd like to activate my scroll solution on drag.
+  }
+
   useEffect(() => {
     const width = (widthRef.current + 24) * 5;
     const tileWidth = widthRef.current;
@@ -99,12 +101,22 @@ function Carousel() {
 
     if (positionRef.current >= 6390 && positionRef.current % tileWidth === 0) {
       tileRef.current.scrollLeft = positionRef.current - width;
-      console.log(info);
+    } else if (
+      positionRef.current <= 2130 &&
+      positionRef.current % tileWidth === 0
+    ) {
+      tileRef.current.scrollLeft = positionRef.current + width;
     }
   }, [scrollPosition]);
 
   return (
-    <div className="carousel-window" ref={tileRef} onScroll={getPosition}>
+    <div
+      className="carousel-window"
+      ref={tileRef}
+      onScroll={getPosition}
+      onDrag={scrollFunction}
+      draggable="true"
+    >
       {array.map((item, index) => {
         return (
           <CarouselTile
