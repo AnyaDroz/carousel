@@ -8,10 +8,9 @@ import Beachfront from "../../images/beachfront.png";
 import Treehouse from "../../images/treehouse.png";
 import { useRef, useEffect, useState } from "react";
 
-// questions: If I wanted to get 'width' from the other component how do I get that here?
 const info = [
   {
-    label: "stay",
+    label: "one",
     title: "the idle rocks",
     eyebrowOne: "hotel",
     eyebrowTwo: "remote",
@@ -19,7 +18,7 @@ const info = [
     image: Idlerocks,
   },
   {
-    label: "stay",
+    label: "two",
     title: "Oakley court",
     eyebrowOne: "castle",
     eyebrowTwo: "urban",
@@ -27,7 +26,7 @@ const info = [
     image: Oakleycourt,
   },
   {
-    label: "stay",
+    label: "three",
     title: "Berkley Cottage",
     eyebrowOne: "Cottage",
     eyebrowTwo: "remote",
@@ -35,7 +34,7 @@ const info = [
     image: Cottage,
   },
   {
-    label: "stay",
+    label: "four",
     title: "Berkley Cottage",
     eyebrowOne: "Cottage",
     eyebrowTwo: "remote",
@@ -43,7 +42,7 @@ const info = [
     image: Beachfront,
   },
   {
-    label: "stay",
+    label: "five",
     title: "Berkley Cottage",
     eyebrowOne: "Cottage",
     eyebrowTwo: "remote",
@@ -51,36 +50,74 @@ const info = [
     image: Treehouse,
   },
 ];
+
 const copyArray = [];
 copyArray.push(...info);
-let originalLengthOfArray = copyArray.length;
+
+for (let i = 0; i < 4; i++) {
+  info.push(...info);
+}
 
 function Carousel() {
+  const [array, setArray] = useState(info);
   const [scrollPosition, setScrollPosition] = useState(0);
   const tileRef = useRef(null);
+  const initialScrollPositionRef = useRef(0);
+  const widthRef = useRef(0);
+  const positionRef = useRef(0);
+
+  useEffect(() => {
+    //Placing the array in the middle.
+
+    initialScrollPositionRef.current =
+      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 20;
+    const initialScrollPosition = initialScrollPositionRef.current;
+
+    tileRef.current.scrollLeft = initialScrollPosition;
+  }, []);
 
   function getPosition() {
-    const position = tileRef.current.scrollLeft;
-    setScrollPosition(position);
+    //Updating the width reference to be width of card + gap times length of array
+    widthRef.current =
+      tileRef.current.lastChild.getBoundingClientRect().width + 24;
+    positionRef.current = tileRef.current.scrollLeft;
+    // const position =
+    const width = (widthRef.current + 24) * 5;
 
-    const lastTile =
-      (tileRef.current.lastChild.getBoundingClientRect().width + 24) *
-      (info.length - originalLengthOfArray);
-    // this checks whenever you've passed the first card - I wasnt able to access last card
-    if (position > lastTile) {
-      info.push(...info);
-    } else {
-    }
+    // console.log(width);
+
+    setScrollPosition(positionRef.current);
+    console.log(positionRef.current);
   }
+
+  function scrollFunction() {
+    // I'd like to activate my scroll solution on drag.
+  }
+
+  useEffect(() => {
+    const width = (widthRef.current + 24) * 5;
+    const tileWidth = widthRef.current;
+    console.log(width);
+
+    if (positionRef.current >= 6390 && positionRef.current % tileWidth === 0) {
+      tileRef.current.scrollLeft = positionRef.current - width;
+    } else if (
+      positionRef.current <= 2130 &&
+      positionRef.current % tileWidth === 0
+    ) {
+      tileRef.current.scrollLeft = positionRef.current + width;
+    }
+  }, [scrollPosition]);
 
   return (
     <div
       className="carousel-window"
-      // onClick={clickHandler}
       ref={tileRef}
       onScroll={getPosition}
+      onDrag={scrollFunction}
+      draggable="true"
     >
-      {info.map((item, index) => {
+      {array.map((item, index) => {
         return (
           <CarouselTile
             key={index}

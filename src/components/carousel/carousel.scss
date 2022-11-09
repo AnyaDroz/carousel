@@ -16,3 +16,7 @@
     transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
     scroll-snap-type: x proximity;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
