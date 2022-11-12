@@ -110,38 +110,6 @@
 
 }
 
-
-
-// .tile-container {
-//     .tile-container__title__active {
-//         bottom: -90px;
-//         padding-left: 0px;
-//         transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-//     }
-
-//     .tile-container__image-container__active {
-//         clip-path: ellipse(400px 400px);
-//         // margin-top: -237px;
-//         transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-//     }
-// }
-
-// .tile-container {
-//     &.active {
-//         .tile-container__title {
-//             bottom: -90px;
-//             padding-left: 0px;
-//             transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-//         }
-
-//         .tile-container__image-container {
-//             clip-path: ellipse(400px 400px);
-//             margin-top: -237px;
-//             transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-//         }
-//     }
-// }
-
 .tile-container {
     &.active {
         .tile-container__title {
@@ -157,29 +125,3 @@
         }
     }
 }
-
-
-// .tile-container.active .tile-container__title {
-//     bottom: -90px;
-//     padding-left: 0px;
-//     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-// }
-
-// .tile-container.active .tile-container__image-container {
-//     clip-path: ellipse(400px 400px);
-//     margin-top: -237px;
-//     transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-// }
-
-
-// .tile-container__title.active {
-//     bottom: -90px;
-//     padding-left: 0px;
-//     transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
-// }
-
-// .tile-container__image-container.active {
-//     clip-path: ellipse(400px 400px);
-//     margin-top: -237px;
-//     transition: all 2s cubic-bezier(0.075, 0.82, 0.165, 1);
-// }
