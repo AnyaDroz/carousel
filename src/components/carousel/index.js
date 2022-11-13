@@ -59,69 +59,47 @@ for (let i = 0; i < 4; i++) {
 }
 
 function Carousel() {
-  const [array, setArray] = useState(info);
+  const [tileContent, setTileContent] = useState(info);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [generateID, setGenerateID] = useState("");
-  const tileRef = useRef(null);
-  const initialScrollPositionRef = useRef(0);
-  const widthRef = useRef(0);
-  const positionRef = useRef(0);
+  const carouselRef = useRef(null);
 
   useEffect(() => {
-    console.log(Date.now());
-    setGenerateID(Date.now());
-  }, [array]);
-
-  useEffect(() => {
-    initialScrollPositionRef.current =
-      (tileRef.current.lastChild.getBoundingClientRect().width + 24) * 20;
-    const initialScrollPosition = initialScrollPositionRef.current;
-
-    tileRef.current.scrollLeft = initialScrollPosition;
+    carouselRef.current.scrollLeft =
+      (carouselRef.current.lastChild.getBoundingClientRect().width + 24) * 20;
   }, []);
 
   function getPosition() {
-    widthRef.current =
-      tileRef.current.lastChild.getBoundingClientRect().width + 24;
-    positionRef.current = tileRef.current.scrollLeft;
-    setScrollPosition(positionRef.current);
-  }
-
-  function scrollFunction() {
-    // I'd like to activate my scroll solution on drag.
+    const position = carouselRef.current.scrollLeft;
+    setScrollPosition(position);
   }
 
   useEffect(() => {
-    const width = (widthRef.current + 24) * copyArray.length;
-    const tileWidth = widthRef.current;
+    const tileWidth =
+      carouselRef.current.lastChild.getBoundingClientRect().width + 24;
+    const carouselWidth =
+      (carouselRef.current.lastChild.getBoundingClientRect().width + 24) *
+      copyArray.length;
 
     if (
-      positionRef.current >= copyArray.length * 3 * tileWidth &&
-      positionRef.current % tileWidth === 0
+      scrollPosition >= copyArray.length * 3 * tileWidth &&
+      scrollPosition % tileWidth === 0
     ) {
-      tileRef.current.scrollLeft = positionRef.current - width;
+      carouselRef.current.scrollLeft = scrollPosition - carouselWidth;
     } else if (
-      positionRef.current <= copyArray.length * tileWidth &&
-      positionRef.current % tileWidth === 0
+      scrollPosition <= copyArray.length * tileWidth &&
+      scrollPosition % tileWidth === 0
     ) {
-      tileRef.current.scrollLeft = positionRef.current + width;
+      carouselRef.current.scrollLeft = scrollPosition + carouselWidth;
     }
   }, [scrollPosition]);
 
   return (
-    <div
-      className="carousel-window"
-      ref={tileRef}
-      onScroll={getPosition}
-      onDrag={scrollFunction}
-      draggable="true"
-    >
-      {array.map((item, index) => {
+    <div className="carousel-window" ref={carouselRef} onScroll={getPosition}>
+      {tileContent.map((item, index) => {
         return (
           <CarouselTile
-            //why key & index...?
             key={index}
-            index={generateID}
+            index={index}
             info={item}
             scrollPosition={scrollPosition}
           />
